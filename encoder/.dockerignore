@@ -1,0 +1,22 @@
+# Node artifacts
+node_modules
+npm-debug.log
+yarn.lock
+pnpm-lock.yaml
+
+# VCS
+.git
+.gitignore
+
+# OS
+.DS_Store
+
+# Env/Secrets
+.env
+*.env
+secrets/
+
+# Logs & temp
+logs/
+*.log
+tmp/
