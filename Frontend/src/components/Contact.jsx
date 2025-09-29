@@ -54,11 +54,16 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/contact", {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      });
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+        }/api/contact`,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }
+      );
 
       if (response.data.success) {
         setSubmitStatus("success");

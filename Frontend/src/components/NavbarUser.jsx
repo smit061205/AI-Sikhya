@@ -109,7 +109,11 @@ const NavbarUser = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/courses");
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+          }/courses`
+        );
         const data = await response.json();
         setCourses(data.courses || []);
       } catch (error) {
@@ -119,7 +123,11 @@ const NavbarUser = () => {
 
     const fetchInstructors = async () => {
       try {
-        const response = await fetch("http://localhost:3000/admin/instructors");
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+          }/admin/instructors`
+        );
         const data = await response.json();
         setInstructors(data.instructors || []);
       } catch (error) {
