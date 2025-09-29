@@ -20,6 +20,7 @@ app.use(express.json());
 const corsOptions = {
   origin: [
     "http://localhost:5173",
+    "https://ai-sikhya.vercel.app",
     "https://ai-sikhya-qzx71virt-smit061205-gmailcoms-projects.vercel.app",
   ],
   optionsSuccessStatus: 200, // For legacy browser support
