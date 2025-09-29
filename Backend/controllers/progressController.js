@@ -168,19 +168,49 @@ const getUserProgress = async (req, res) => {
   try {
     const userId = req.userId;
 
+    // Get all courses
+    const allCourses = await Course.find({}).select(
+      "title thumbnail.url duration price"
+    );
+
+    // Get existing progress records
     const progressRecords = await Progress.find({ user: userId })
       .populate("course", "title thumbnail.url duration price")
       .sort({ lastAccessedAt: -1 });
 
+    // Create progress records for courses that don't have them yet
+    const coursesWithProgress = [];
+
+    for (const course of allCourses) {
+      let existingProgress = progressRecords.find(
+        (p) => p.course._id.toString() === course._id.toString()
+      );
+
+      if (existingProgress) {
+        coursesWithProgress.push(existingProgress);
+      } else {
+        // Create a default progress record for display
+        coursesWithProgress.push({
+          course: course,
+          overallProgress: 0,
+          completedVideos: 0,
+          totalVideos: course.videos ? course.videos.length : 0,
+          isCompleted: false,
+          lastAccessedAt: new Date(),
+          totalWatchTime: 0,
+        });
+      }
+    }
+
     // Separate completed and in-progress courses
-    const completedCourses = progressRecords.filter((p) => p.isCompleted);
-    const inProgressCourses = progressRecords.filter((p) => !p.isCompleted);
+    const completedCourses = coursesWithProgress.filter((p) => p.isCompleted);
+    const inProgressCourses = coursesWithProgress.filter((p) => !p.isCompleted);
 
     res.status(200).json({
-      totalCourses: progressRecords.length,
+      totalCourses: coursesWithProgress.length,
       completedCourses: completedCourses.length,
       inProgressCourses: inProgressCourses.length,
-      progressRecords,
+      progressRecords: coursesWithProgress,
       completedCourses,
       inProgressCourses,
     });
@@ -189,7 +219,6 @@ const getUserProgress = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 // Get progress analytics for admin (for a specific course)
 const getCourseAnalytics = async (req, res) => {
   try {
