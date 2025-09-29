@@ -119,7 +119,9 @@ export const AuthProvider = ({ children }) => {
         response.data;
 
       // Store token and user data
+      
       localStorage.setItem("token", token);
+      setToken(token); // Add this line!
       setUser({
         email,
         username,
