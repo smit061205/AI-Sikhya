@@ -15,7 +15,16 @@ const app = express();
 const MONGO_URL = process.env.MONGO_URL;
 mongoose.connect(MONGO_URL);
 app.use(express.json());
-app.use(cors());
+
+// Set up CORS to allow requests from your Vercel frontend
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "https://ai-sikhya-qzx71virt-smit061205-gmailcoms-projects.vercel.app",
+  ],
+  optionsSuccessStatus: 200, // For legacy browser support
+};
+app.use(cors(corsOptions));
 
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
