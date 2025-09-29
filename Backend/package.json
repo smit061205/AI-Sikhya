@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "start:prod": "concurrently \"npm start\" \"npm run start:encoder\"",
+    "start:encoder": "cd ../encoder && npm start"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +20,7 @@
     "axios": "^1.6.7",
     "bcrypt": "^6.0.0",
     "cloudinary": "^1.41.0",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
