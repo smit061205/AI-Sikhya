@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
         try {
           // Verify token with backend
           const response = await axios.get("/user/profile");
-          console.log(" AuthContext - Profile response:", response.data);
 
           // Extract user data properly - backend returns user data directly
           const userData = {
@@ -53,12 +52,10 @@ export const AuthProvider = ({ children }) => {
             dateOfBirth: response.data.dateOfBirth,
           };
 
-          console.log(" AuthContext - Setting user data:", userData);
           setUser(userData);
           setIsAuthenticated(true);
         } catch (error) {
           // Token is invalid, remove it
-          console.log("Token invalid, logging out");
           logout();
         }
       } else {

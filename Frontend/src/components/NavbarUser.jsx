@@ -55,26 +55,15 @@ const NavbarUser = () => {
         // Use axios - interceptor will automatically add Authorization header
         const response = await axios.get("/user/profile");
 
-        console.log("📸 Frontend Profile Image Debug:");
-        console.log("profileImageUrl:", response.data.profileImageUrl);
-        console.log("profilePicture:", response.data.profilePicture);
-        console.log("profilePhotoUrl:", response.data.profilePhoto?.url);
-        console.log("Full response data:", response.data);
-
         // Use unified field first, fallback to old fields
         const imageUrl =
           response.data.profileImageUrl ||
           response.data.profilePicture ||
           response.data.profilePhoto?.url;
 
-        console.log("🖼️ Final image URL selected:", imageUrl);
         setProfilePicture(imageUrl);
       } catch (error) {
-        console.error("Profile fetch error:", error);
-
-        // If token is invalid, logout user
         if (error.response?.status === 401) {
-          console.log("🔐 Token expired or invalid, logging out...");
           HandleLogout();
         }
       }
@@ -496,12 +485,7 @@ const NavbarUser = () => {
                   e.target.style.display = "none";
                   e.target.nextSibling.style.display = "flex";
                 }}
-                onLoad={() => {
-                  console.log(
-                    "✅ Profile image loaded successfully:",
-                    profilePicture,
-                  );
-                }}
+                onLoad={() => {}}
               />
             ) : (
               <div className="bg-gradient-to-br from-cyan-600 to-blue-600 w-full h-full flex items-center justify-center text-white font-semibold">

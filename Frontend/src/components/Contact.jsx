@@ -6,7 +6,6 @@ import axios from "axios";
 const Contact = () => {
   const lenis = useLenis((lenis) => {
     // called every scroll
-    console.log(lenis);
   });
 
   const [formData, setFormData] = useState({
@@ -72,7 +71,6 @@ const Contact = () => {
         setSubmitStatus("error");
       }
     } catch (error) {
-      console.error("Error sending message:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);

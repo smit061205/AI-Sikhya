@@ -9,7 +9,6 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const lenis = useLenis((lenis) => {
     // called every scroll
-    console.log(lenis);
   });
   const [courses, setCourses] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -27,7 +26,6 @@ const LandingPage = () => {
         const data = await response.json();
         setCourses(data.courses || []);
       } catch (error) {
-        console.error("Failed to fetch courses:", error);
       }
     };
 
@@ -41,7 +39,6 @@ const LandingPage = () => {
         const data = await response.json();
         setInstructors(data.instructors || []);
       } catch (error) {
-        console.error("Failed to fetch instructors:", error);
       }
     };
 

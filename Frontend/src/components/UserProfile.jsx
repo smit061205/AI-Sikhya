@@ -137,18 +137,12 @@ const UserProfile = () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
-          console.error("❌ No token found in localStorage");
           return;
         }
 
         // Use axios - interceptor will automatically add Authorization header
         const response = await axios.get("/user/profile");
 
-        console.log("📸 Frontend Profile Image Debug:");
-        console.log("profileImageUrl:", response.data.profileImageUrl);
-        console.log("profilePicture:", response.data.profilePicture);
-        console.log("profilePhotoUrl:", response.data.profilePhoto?.url);
-        console.log("Full response data:", response.data);
 
         // Use unified field first, fallback to old fields
         const imageUrl =
@@ -156,7 +150,6 @@ const UserProfile = () => {
           response.data.profilePicture ||
           response.data.profilePhoto?.url;
 
-        console.log("🖼️ Final image URL selected:", imageUrl);
         setProfilePicture(imageUrl);
 
         // Pre-populate form data with existing user data
@@ -177,11 +170,9 @@ const UserProfile = () => {
           },
         });
       } catch (error) {
-        console.error("Profile fetch error:", error);
 
         // If token is invalid, logout user
         if (error.response?.status === 401) {
-          console.log("🔐 Token expired or invalid, logging out...");
           logout();
         }
       }
@@ -775,9 +766,7 @@ const UserProfile = () => {
     try {
       const response = await axios.put("/user/profile", formData);
 
-      console.log("Profile updated:", response.data);
     } catch (error) {
-      console.error("Profile update error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -839,9 +828,7 @@ const UserProfile = () => {
       // Reset file input
       document.getElementById("photo-upload").value = "";
 
-      console.log("Photo updated successfully:", response.data);
     } catch (error) {
-      console.error("Photo upload error:", error);
       alert(
         error.response?.data?.error ||
           "Failed to upload photo. Please try again.",
