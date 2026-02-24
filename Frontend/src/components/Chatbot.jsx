@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Get base URL for backend calls
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
 const Chatbot = ({ video, transcriptData }) => {
   const [messages, setMessages] = useState([
     {
@@ -87,7 +91,7 @@ const Chatbot = ({ video, transcriptData }) => {
           ),
         );
         formData.append("image", imageFile);
-        const res = await fetch("/api/chatbot/chat", {
+        const res = await fetch(`${API_BASE_URL}/api/chatbot/chat`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
@@ -98,7 +102,7 @@ const Chatbot = ({ video, transcriptData }) => {
           return data.response;
         }
       } else {
-        const res = await fetch("/api/chatbot/chat", {
+        const res = await fetch(`${API_BASE_URL}/api/chatbot/chat`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
