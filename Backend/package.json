@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "start:prod": "concurrently \"npm start\" \"npm run start:encoder\"",
+    "start:encoder": "cd ../encoder && npm start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@google-cloud/pubsub": "^5.2.0",
+    "@google-cloud/storage": "^7.16.0",
+    "@google/generative-ai": "^0.21.0",
+    "axios": "^1.6.7",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^1.41.0",
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "google-auth-library": "^9.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.0",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^7.0.5",
+    "openai": "^4.28.4",
+    "razorpay": "^2.9.6",
+    "uuid": "^11.1.0",
+    "zod": "^3.23.8"
+  }
+}

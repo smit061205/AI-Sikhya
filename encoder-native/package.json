@@ -1,0 +1,27 @@
+{
+  "name": "vod-encoder-native",
+  "version": "1.0.0",
+  "description": "Native macOS video encoder with M2 GPU acceleration",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "trigger": "node trigger.js",
+    "list": "node trigger.js list",
+    "monitor": "node monitor.js",
+    "gpu": "node gpu-monitor.js",
+    "encoding": "node encoding-monitor.js",
+    "logs": "tail -f ./logs/encoder.log"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^4.0.7",
+    "@google-cloud/storage": "^7.7.0",
+    "execa": "^8.0.1",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,35 @@
+Steps
+1. Verify configs (quick glance)
+* encoder env:  encoder/.env
+    * ENCODER_CALLBACK_BASE=http://host.docker.internal:3000/admin
+    * ENCODER_CALLBACK_SECRET=Mithu@smit
+    * GCP_KEY_FILE_PATH=/secrets/key.json (used inside container)
+* backend env:  Backend/.env
+    * ENCODER_CALLBACK_SECRET=Mithu@smit
+2. Start backend (port 3000)
+* From  Backend/ :
+# If nodemon is installed globally:
+npm run dev
+
+# Otherwise:
+node index.js
+
+# Build the M2-optimized encoder
+docker build -t vod-encoder:local ./encoder
+
+# Remove any existing container
+docker rm -f vod-encoder >/dev/null 2>&1 || true
+
+# Run with VideoToolbox acceleration
+docker run -d \
+  --name vod-encoder \
+  --restart unless-stopped \
+  --env-file "./encoder/.env" \
+  -v "/Users/smitthakkar/Desktop/Course selling app/Backend/gcp-credentials.json":/secrets/key.json:ro \
+  vod-encoder:local
+
+# Check if container is running
+docker ps | grep vod-encoder
+
+# Monitor logs
+docker logs -f --since=1m vod-encoder
